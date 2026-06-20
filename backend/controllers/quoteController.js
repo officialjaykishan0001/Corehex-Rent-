@@ -1,4 +1,5 @@
 const Quote = require("../models/quoteModel");
+const Notification = require("../models/notificationModel");
 
 const createQuote = async (req, res) => {
     try {
@@ -8,6 +9,13 @@ const createQuote = async (req, res) => {
         const quote = await Quote.create({
             ...req.body,
             reference,
+        });
+
+        await Notification.create({
+            kind: "quote",
+            title: "New quote request",
+            message: `${quote.name} • ${quote.company} (${quote.items.length} items)`,
+            href: "/admin/quotes",
         });
 
         res.status(201).json({

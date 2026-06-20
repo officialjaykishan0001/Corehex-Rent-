@@ -1,9 +1,17 @@
 const Booking = require("../models/bookingModel");
+const Notification = require("../models/notificationModel");
 
 const createBooking = async (req, res) => {
   try {
 
     const booking = await Booking.create(req.body);
+
+    await Notification.create({
+      kind: "booking",
+      title: "New booking request",
+      message: `${booking.name} • ${booking.company} requested ${booking.quantity}x equipment`,
+      href: `/admin/bookings/${booking._id}`,
+    });
 
     res.status(201).json({
       success: true,
