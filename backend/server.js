@@ -8,6 +8,7 @@ const equipmentRoutes = require("./routes/equipmentRoutes");
 const userRoutes = require("./routes/userRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
+const customerRoutes = require("./routes/customerRoutes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/equipment", equipmentRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/quotes", quoteRoutes);
+app.use("/api/customers", customerRoutes);
 app.get('/test', (req, res) => {
   res.send('Hello World!');
 });
