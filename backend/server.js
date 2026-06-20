@@ -11,6 +11,7 @@ const quoteRoutes = require("./routes/quoteRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const inventoryRoutes = require("./routes/inventoryRoutes");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/quotes", quoteRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/inventory", inventoryRoutes);
 
 app.get('/test', (req, res) => {
   res.send('Hello World!');
