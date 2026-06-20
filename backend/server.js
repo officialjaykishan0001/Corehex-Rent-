@@ -6,6 +6,7 @@ dns.setServers(['1.1.1.1', '8.8.8.8'])
 const connectDB = require("./config/db");
 const equipmentRoutes = require("./routes/equipmentRoutes");
 const userRoutes = require("./routes/userRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(cors(corsOptions));
 // Equipment Routes
 app.use("/api/equipment", equipmentRoutes);
 app.use("/api/user", userRoutes);
-
+app.use("/api/booking", bookingRoutes);
 app.get('/test', (req, res) => {
   res.send('Hello World!');
 });
