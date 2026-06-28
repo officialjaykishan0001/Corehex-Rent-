@@ -11,14 +11,14 @@ const {
   deleteBooking,
 } = require("../controllers/bookingController");
 
-router.post("/", protect, admin, createBooking);
+router.post("/", protect, createBooking);
 
-router.get("/", getBookings);
+router.get("/", protect, getBookings);
 
-router.get("/:id", getBookingById);
+router.get("/:id", protect, getBookingById);
 
 router.patch("/:id", protect, admin, updateBookingStatus);
 
-router.delete("/:id", protect, admin, deleteBooking);
+router.delete("/:id", protect, deleteBooking);
 
 module.exports = router;
