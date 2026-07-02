@@ -1,5 +1,5 @@
 import { api, setAuthToken, ApiError } from "./api";
-import type { AdminUser, AdminRole } from "@/types/admin";
+import type { AdminUser, UserRole } from "@/types/admin";
 
 interface BackendUser {
   _id: string;
@@ -15,10 +15,7 @@ function toAdminUser(u: BackendUser): AdminUser {
     .map((p) => p[0]?.toUpperCase() ?? "")
     .join("")
     .slice(0, 2) || u.email.slice(0, 2).toUpperCase();
-  const role: AdminRole =
-    u.role === "admin" || u.role === "manager" || u.role === "staff"
-      ? (u.role as AdminRole)
-      : "admin";
+  const role: UserRole = u.role === "admin" ? "admin" : "user";
   return {
     id: u._id,
     name: u.name,
@@ -41,7 +38,7 @@ export const authService = {
     name: string,
     email: string,
     password: string,
-    role: string = "customer",
+    role: UserRole = "user",
     phone?: string,
   ): Promise<AdminUser> {
     const { data } = await api.post<BackendUser>("/user/register", {

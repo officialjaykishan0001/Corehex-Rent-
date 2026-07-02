@@ -1,12 +1,14 @@
 import type { Booking, Quote, Equipment, CategorySlug } from "./rental";
 
-export type AdminRole = "admin" | "manager" | "staff";
+export type UserRole = "admin" | "user";
+/** @deprecated use UserRole */
+export type AdminRole = UserRole;
 
 export interface AdminUser {
   id: string;
   name: string;
   email: string;
-  role: AdminRole;
+  role: UserRole;
   avatarInitials: string;
 }
 

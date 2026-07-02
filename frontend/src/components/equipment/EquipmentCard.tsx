@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Star, Check, ShoppingCart } from "lucide-react";
+import { Star, Check, ShoppingCart, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon } from "./EquipmentIcon";
 import { AvailabilityBadge } from "./AvailabilityBadge";
@@ -7,6 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import { useBooking } from "@/components/booking/BookingProvider";
 import type { Equipment } from "@/types/rental";
 import { toast } from "sonner";
+
 
 export function EquipmentCard({ item }: { item: Equipment }) {
   const cart = useCart();
@@ -51,7 +52,10 @@ export function EquipmentCard({ item }: { item: Equipment }) {
       </div>
       <div className="mt-5 pt-5 border-t border-border/40 flex items-center justify-between gap-3">
         <div>
-          <div className="text-2xl font-display font-semibold">${item.dailyRate}</div>
+          <div className="text-2xl font-display font-semibold flex gap-0 items-center">
+             <IndianRupee size={24} color="white" />
+            {item.dailyRate}
+          </div>
           <div className="text-xs text-muted-foreground">per day</div>
         </div>
         <div className="flex items-center gap-2">

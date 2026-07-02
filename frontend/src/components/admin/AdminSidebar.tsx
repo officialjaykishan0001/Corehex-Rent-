@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
+import logo from "@/assets/logo.png";
+
 
 const NAV = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -33,10 +35,8 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r border-border bg-sidebar/95 backdrop-blur">
-      <div className="flex items-center gap-2 px-5 py-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
-          <Hexagon className="h-5 w-5" />
-        </div>
+      <div className="flex items-center  px-5 py-5 items-center   ">
+        <img src={logo} alt="CoreHex Rental" className="size-12 rounded-lg" />
         <div className="flex flex-col leading-tight">
           <span className="font-display text-sm font-semibold">CoreHex</span>
           <span className="text-[10px] uppercase tracking-widest text-muted-foreground">

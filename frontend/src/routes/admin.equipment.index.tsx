@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Package, Plus, Search, Trash2, Pencil } from "lucide-react";
+import { Package, Plus, Search, Trash2, Pencil, IndianRupee } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { AdminLayout } from "@/components/admin/AdminLayout";
@@ -178,7 +178,12 @@ function AdminEquipmentPage() {
                       </div>
                     </td>
                     <td className="py-3 pr-3 capitalize">{e.category.replace("-", " ")}</td>
-                    <td className="py-3 pr-3">${e.dailyRate}</td>
+                    <td className="py-3 pr-3">
+                      <span className="flex items-center">
+                        <IndianRupee size={14} className="inline" />
+                        {e.dailyRate}
+                      </span>
+                    </td>
                     <td className="py-3 pr-3">{e.availableQuantity}/{e.totalQuantity}</td>
                     <td className="py-3 pr-3"><StatusBadge status={e.status} /></td>
                     <td className="py-3 pr-3 text-xs text-muted-foreground">{new Date(e.updatedAt).toLocaleDateString()}</td>

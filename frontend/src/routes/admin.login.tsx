@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DEMO_ADMIN_CREDENTIALS, useAdminAuth } from "@/hooks/useAdminAuth";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import logo from "@/assets/logo.png";
 
 const schema = z.object({
   email: z.string().trim().email("Enter a valid email"),
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/admin/login")({
 });
 
 function AdminLoginPage() {
-  const { login, isAuthenticated } = useAdminAuth();
+  const { login, logout, isAuthenticated, user } = useAdminAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,12 +46,19 @@ function AdminLoginPage() {
   });
 
   useEffect(() => {
-    if (isAuthenticated) navigate({ to: "/admin/dashboard" });
-  }, [isAuthenticated, navigate]);
+    if (isAuthenticated && user?.role === "admin") {
+      navigate({ to: "/admin/dashboard" });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   async function onSubmit(values: FormValues) {
     try {
-      await login(values.email, values.password, values.remember);
+      const u = await login(values.email, values.password, values.remember);
+      if (u.role !== "admin") {
+        await logout();
+        toast.error("This account does not have administrator access.");
+        return;
+      }
       toast.success("Welcome back");
       navigate({ to: "/admin/dashboard" });
     } catch (err) {
@@ -64,9 +72,7 @@ function AdminLoginPage() {
       <div className="absolute -top-32 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-primary/30 blur-3xl" />
       <div className="relative w-full max-w-md">
         <div className="mb-6 flex items-center justify-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
-            <Hexagon className="h-5 w-5" />
-          </div>
+          <img src={logo} alt="CoreHex Rental" className="size-12 rounded-lg" />
           <div className="font-display text-lg font-semibold">CoreHex Admin</div>
         </div>
         <div className="glass-card rounded-2xl p-8">
@@ -126,12 +132,6 @@ function AdminLoginPage() {
               Sign in
             </Button>
           </form>
-
-          <div className="mt-6 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
-            <p className="font-medium text-foreground">Demo credentials</p>
-            <p className="mt-1">Email: {DEMO_ADMIN_CREDENTIALS.email}</p>
-            <p>Password: {DEMO_ADMIN_CREDENTIALS.password}</p>
-          </div>
         </div>
       </div>
     </div>

@@ -1,16 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
 import { categories } from "@/data/equipment";
+import logo from "@/assets/logo.png";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/40 py-12 mt-12">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-sm">
         <div>
-          <div className="flex items-center gap-2">
-            <div className="size-7 rounded-lg bg-gradient-to-br from-primary to-primary-glow grid place-items-center">
-              <Sparkles className="size-3.5 text-primary-foreground" />
-            </div>
+          <div className="flex items-center">
+            <img src={logo} alt="CoreHex Rental" className="size-12 rounded-lg" />
             <span className="font-display font-semibold text-foreground">CoreHex Rental</span>
           </div>
           <p className="mt-3 text-muted-foreground text-xs">

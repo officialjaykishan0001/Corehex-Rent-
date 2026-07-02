@@ -36,6 +36,16 @@ function AdminCustomersPage() {
     );
   }, [data, q]);
 
+  
+  function fmtMoney(n: number) {
+  return new Intl.NumberFormat("en-IN", { 
+    style: "currency", 
+    currency: "INR", 
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0 
+  }).format(n);
+}
+
   return (
     <AdminLayout>
       <PageHeader title="Customers" description="Your customer book and lifetime value" />
@@ -65,7 +75,7 @@ function AdminCustomersPage() {
                       </td>
                       <td className="py-3 pr-3">{c.company}</td>
                       <td className="py-3 pr-3">{c.totalBookings}</td>
-                      <td className="py-3 pr-3">${c.lifetimeRevenue.toLocaleString()}</td>
+                      <td className="py-3 pr-3">{fmtMoney(c.lifetimeRevenue)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -94,14 +104,15 @@ function AdminCustomersPage() {
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
                 <div className="rounded-md border border-border p-3"><p className="text-xs text-muted-foreground">Bookings</p><p className="font-semibold">{selected.totalBookings}</p></div>
-                <div className="rounded-md border border-border p-3"><p className="text-xs text-muted-foreground">Lifetime</p><p className="font-semibold">${selected.lifetimeRevenue.toLocaleString()}</p></div>
+                <div className="rounded-md border border-border p-3"><p className="text-xs text-muted-foreground">Lifetime</p>
+                <p className="font-semibold">{fmtMoney(selected.lifetimeRevenue)}</p></div>
               </div>
 
               <div className="mt-4">
                 <h4 className="text-xs uppercase tracking-wider text-muted-foreground">Booking history</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                   {(history.data?.bookings ?? []).slice(0, 5).map((b) => (
-                    <li key={b.id} className="flex justify-between"><span className="font-mono text-xs">{b.id}</span><span>${b.estimatedCost.toLocaleString()}</span></li>
+                    <li key={b.id} className="flex justify-between"><span className="font-mono text-xs">{b.id}</span><span>{fmtMoney(b.estimatedCost)}</span></li>
                   ))}
                   {(history.data?.bookings ?? []).length === 0 && <li className="text-xs text-muted-foreground">No bookings yet</li>}
                 </ul>

@@ -52,6 +52,15 @@ function BookingDetailPage() {
     }
   }
 
+  function fmtMoney(n: number) {
+  return new Intl.NumberFormat("en-IN", { 
+    style: "currency", 
+    currency: "INR", 
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0 
+  }).format(n);
+}
+
   if (isLoading || !data)
     return (
       <AdminLayout>
@@ -82,7 +91,7 @@ function BookingDetailPage() {
             <Row label="Quantity" value={String(data.quantity)} />
             <Row label="Start" value={data.startDate} />
             <Row label="End" value={data.endDate} />
-            <Row label="Estimated cost" value={`$${data.estimatedCost.toLocaleString()}`} />
+            <Row label="Estimated cost" value={fmtMoney(data.estimatedCost)} />
           </Section>
 
           <Section title="Delivery">

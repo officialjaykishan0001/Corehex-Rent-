@@ -1,7 +1,7 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus, Trash2, Loader2 } from "lucide-react";
+import { Plus, Trash2, Loader2, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -159,13 +159,33 @@ export function EquipmentForm({ initial, submitting, onSubmit, onSaveDraft }: Eq
       <div className="glass-card rounded-xl p-5">
         <h3 className="font-display text-base font-semibold">Pricing & inventory</h3>
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Field label="Daily price ($)" error={errors.dailyRate?.message}>
+          <Field
+            label={
+              <span className="flex items-center gap-1">
+                Daily price (<IndianRupee size={14} />)
+              </span>
+            } error={errors.dailyRate?.message}
+          >
             <Input type="number" min={0} {...register("dailyRate")} />
           </Field>
-          <Field label="Weekly price ($)" error={errors.weeklyRate?.message}>
+          <Field
+            label={
+              <span className="flex items-center gap-1">
+                Weekly price (<IndianRupee size={14} />)
+              </span>
+            }
+            error={errors.weeklyRate?.message}
+          >
             <Input type="number" min={0} {...register("weeklyRate")} />
           </Field>
-          <Field label="Monthly price ($)" error={errors.monthlyRate?.message}>
+          <Field
+            label={
+              <span className="flex items-center gap-1">
+                Monthly price (<IndianRupee size={14} />)
+              </span>
+            }
+            error={errors.monthlyRate?.message}
+          >
             <Input type="number" min={0} {...register("monthlyRate")} />
           </Field>
           <Field label="Total quantity" error={errors.totalQuantity?.message}>

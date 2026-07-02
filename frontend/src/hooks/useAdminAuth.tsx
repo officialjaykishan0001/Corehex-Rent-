@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { AdminUser } from "@/types/admin";
+import type { AdminUser, UserRole } from "@/types/admin";
 import { authService } from "@/services/auth.service";
 import { onUnauthorized } from "@/services/api";
 
@@ -21,7 +21,7 @@ interface AdminAuthContextValue {
     name: string,
     email: string,
     password: string,
-    opts?: { phone?: string; role?: string },
+    opts?: { phone?: string; role?: UserRole },
   ) => Promise<AdminUser>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -64,9 +64,9 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     name: string,
     email: string,
     password: string,
-    opts?: { phone?: string; role?: string },
+    opts?: { phone?: string; role?: UserRole },
   ) => {
-    const role = opts?.role ?? "user";
+    const role: UserRole = opts?.role ?? "user";
     const u = await authService.register(name, email, password, role, opts?.phone);
     // auto-login after register so session is established
     try {
@@ -106,8 +106,3 @@ export function useAdminAuth() {
   if (!ctx) throw new Error("useAdminAuth must be used inside AdminAuthProvider");
   return ctx;
 }
-
-export const DEMO_ADMIN_CREDENTIALS = {
-  email: "admin@corehex.com",
-  password: "Admin@123",
-};

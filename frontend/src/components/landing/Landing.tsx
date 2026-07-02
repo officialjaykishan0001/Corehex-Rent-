@@ -55,9 +55,9 @@ const steps = [
 ];
 
 const stats = [
-  { value: "12,000+", label: "Devices in fleet" },
-  { value: "98.7%", label: "On-time SLA" },
-  { value: "850+", label: "Enterprise clients" },
+  { value: "10+", label: "Devices in fleet" },
+  { value: "100%", label: "On-time SLA" },
+  { value: "5+", label: "Enterprise clients" },
   { value: "24/7", label: "Support coverage" },
 ];
 
@@ -123,7 +123,6 @@ export function Landing() {
       <Featured />
       <Process />
       <Testimonials />
-      <Pricing />
       <Faq />
       <Contact />
       <SiteFooter />
